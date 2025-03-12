@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+
+    <title th:text="${title}"></title>
+</head>
+<body>
+<div th:replace="~{fragments/header :: header}"></div>
+
+<h1 th:text="${subtitle}">Shopping Cart</h1>
+
+<h2>Available Products</h2>
+<ul>
+    <li th:each="entry : ${products}">
+        <span>Id: <span th:text="${entry.key}"></span> - </span>
+        <span>Name: <span th:text="${entry.value.name}"></span> - </span>
+        <span>Price: <span th:text="${entry.value.price}"></span> - </span>
+        <a th:href="@{'/cart/add/' + ${entry.key}}">Add to cart</a>
+    </li>
+</ul>
+
+<h2>Products in Cart</h2>
+<ul>
+    <li th:each="entry : ${cartProducts}">
+        <span>Id: <span th:text="${entry.key}"></span> - </span>
+        <span>Name: <span th:text="${entry.value.name}"></span> - </span>
+        <span>Price: <span th:text="${entry.value.price}"></span></span>
+    </li>
+</ul>
+
+<a th:href="@{/cart/removeAll}">Remove all products from cart</a>
+<div th:replace="~{fragments/footer :: footer}"></div>
+</body>
+</html>
